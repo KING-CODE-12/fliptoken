@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FlipToken</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #080d18;
+  color: white;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+header {
+  padding: 22px;
+  background: #101a2c;
+  border-bottom: 1px solid #164e9b;
+}
+h1 { color: #3995ff; margin: 0; }
+main { padding: 35px 18px; }
+.card {
+  max-width: 430px;
+  margin: 20px auto;
+  padding: 25px;
+  background: #111d31;
+  border: 1px solid #214a7e;
+  border-radius: 16px;
+}
+button {
+  background: #1677ed;
+  color: white;
+  border: 0;
+  padding: 13px 25px;
+  border-radius: 9px;
+  font-size: 16px;
+  cursor: pointer;
+}
+button:active { background: #0955b5; }
+#coin {
+  font-size: 65px;
+  margin: 20px;
+}
+#result { color: #58a6ff; font-size: 21px; }
+footer { color: #8998ad; padding: 25px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>FLIPTOKEN</h1>
+  <p>Practice. Flip. Have fun.</p>
+</header>
+
+<main>
+  <div class="card">
+    <h2>Practice Coin Flip</h2>
+    <p>Try your luck with a free practice flip.</p>
+    <div id="coin">🪙</div>
+    <p id="result">Ready to flip?</p>
+    <button onclick="flipCoin()">FLIP COIN</button>
+    <h3>Practice score: <span id="score">0</span></h3>
+    <p>No real tokens or rewards are involved.</p>
+  </div>
+</main>
+
+<footer>FlipToken © 2026</footer>
+
+<script>
+let score = 0;
+
+function flipCoin() {
+  const heads = Math.random() < 0.5;
+  document.getElementById("coin").textContent =
+    heads ? "🟡" : "⚪";
+  document.getElementById("result").textContent =
+    heads ? "HEADS!" : "TAILS!";
+  score++;
+  document.getElementById("score").textContent = score;
+}
+</script>
+</body>
+</html>
