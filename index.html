@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FlipToken | Gaming Hub</title>
+<style>
+:root {
+  --bg:#080d19;
+  --panel:#111b30;
+  --blue:#287bff;
+  --cyan:#35c8ff;
+  --text:#f4f7ff;
+  --muted:#91a2bd;
+  --border:#243553;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body {
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial,sans-serif;
+}
+button{cursor:pointer;font-weight:bold}
+header{
+  padding:18px 5%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:#0c1425;
+  border-bottom:1px solid var(--border);
+  flex-wrap:wrap;
+  gap:15px;
+}
+.logo{font-size:25px;font-weight:900}
+.logo span{color:var(--cyan)}
+nav{display:flex;gap:18px;flex-wrap:wrap}
+nav button{
+  background:none;border:0;color:var(--muted);
+}
+nav button.active{color:var(--cyan)}
+.balance{
+  background:#162440;padding:12px 16px;
+  border-radius:12px;color:var(--cyan);
+}
+main{max-width:1200px;margin:auto;padding:30px 20px}
+.page{display:none}
+.page.active{display:block}
+.hero{
+  padding:35px;border-radius:22px;
+  background:linear-gradient(120deg,#102d60,#123c62);
+  border:1px solid #28558b;
+  margin-bottom:25px;
+}
+.hero h1{font-size:34px;margin:12px 0}
+.hero p{color:#c4d5ef;line-height:1.6}
+.primary{
+  border:0;border-radius:10px;padding:13px 20px;
+  color:white;background:linear-gradient(100deg,#287bff,#16a9ed);
+}
+.grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:16px;
+}
+.card,.game-card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  padding:22px;border-radius:16px;
+}
+.card p,.game-card p{color:var(--muted);font-size:14px;line-height:1.6}
+.stat{font-size:27px;font-weight:bold;color:var(--cyan);margin-top:12px}
+.section-title{margin:28px 0 15px}
+.game-area{
+  text-align:center;padding:30px 15px;
+  background:#0d1729;border-radius:16px;margin-top:20px;
+}
+.big-number{font-size:44px;font-weight:900;color:var(--cyan);margin:20px}
+.small-btn{
+  border:1px solid #3268a8;background:#142c4d;
+  color:#8fcaff;padding:9px 13px;border-radius:9px;
+}
+.notice{
+  border:1px solid #28558b;background:#10213b;
+  color:#b9d9ff;padding:14px;border-radius:10px;
+  font-size:12px;line-height:1.6;margin-top:20px;
+}
+.mission{
+  display:flex;justify-content:space-between;
+  align-items:center;padding:16px 0;
+  border-bottom:1px solid var(--border);gap:12px;
+}
+table{width:100%;border-collapse:collapse}
+td,th{text-align:left;padding:15px 10px;border-bottom:1px solid var(--border)}
+th{color:var(--muted)}
+.item-art{
+  height:100px;border-radius:12px;
+  display:grid;place-items:center;font-size:42px;
+  background:linear-gradient(135deg,#173e76,#10203d);
+}
+footer{
+  text-align:center;padding:30px;color:var(--muted);
+  border-top:1px solid var(--border);margin-top:45px;
+}
+@media(max-width:750px){
+  .grid{grid-template-columns:1fr}
+  .hero h1{font-size:27px}
+  main{padding:20px 14px}
+  nav{overflow-x:auto;width:100%;padding:8px 0}
+  nav button{white-space:nowrap}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">FLIP<span>TOKEN</span></div>
+  <nav>
+    <button class="active" onclick="showPage('home',this)">Home</button>
+    <button onclick="showPage('games',this)">Games</button>
+    <button onclick="showPage('missions',this)">Missions</button>
+    <button onclick="showPage('leaderboard',this)">Leaderboard</button>
+    <button onclick="showPage('shop',this)">Shop</button>
+    <button onclick="showPage('profile',this)">Profile</button>
+  </nav>
+  <div class="balance">◆ <span id="balance">1000</span></div>
+</header>
+
+<main>
+<section class="page active" id="home">
+  <div class="hero">
+    <h1>Welcome to FlipToken.</h1>
+    <p>Your gaming adventure starts here. Play games, complete missions and earn demo tokens.</p>
+    <br>
+    <button class="primary" onclick="showPage('games')">Explore Games →</button>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <p>TOKEN BALANCE</p>
+      <div class="stat" id="homeBalance">1000</div>
+    </div>
+    <div class="card">
+      <p>PLAYER LEVEL</p>
+      <div class="stat">Level 1</div>
+    </div>
+    <div class="card">
+      <p>GAMES PLAYED</p>
+      <div class="stat" id="played">0</div>
+    </div>
+  </div>
+
+  <h2 class="section-title">Featured Games</h2>
+  <div class="grid">
+    <div class="game-card">
+      <h2>⚡ Reaction Lab</h2>
+      <p>Test your reaction speed and earn demo tokens.</p>
+      <br>
+      <button class="primary" onclick="showPage('games')">Play Now</button>
+    </div>
+    <div class="game-card">
+      <h2>🎯 Daily Missions</h2>
+      <p>Complete challenges and collect rewards.</p>
+      <br>
+      <button class="primary" onclick="showPage('missions')">View Missions</button>
+    </div>
+    <div class="game-card">
+      <h2>🏆 Leaderboard</h2>
+      <p>See player rankings and scores.</p>
+      <br>
+      <button class="primary" onclick="showPage('leaderboard')">Rankings</button>
+    </div>
+  </div>
+
+  <div class="notice">
+    Demo tokens are fictional points stored in your browser.
+    They cannot be transferred, deposited or withdrawn.
+  </div>
+</section>
+
+<section class="page" id="games">
+  <h2 class="section-title">Mini Games</h2>
+  <div class="game-card">
+    <h2>⚡ Reaction Lab</h2>
+    <p>Wait until the button turns green, then tap it as quickly as possible.</p>
+    <div class="game-area">
+      <h3 id="gameMessage">Ready?</h3>
+      <div class="big-number" id="timer">--</div>
+      <button class="primary" id="startButton" onclick="startGame()">Start Game</button>
+      <p id="gameResult">Earn up to 50 demo tokens.</p>
+    </div>
+  </div>
+</section>
+
+<section class="page" id="missions">
+  <h2 class="section-title">Daily Missions</h2>
+  <div class="card">
+    <div class="mission">
+      <div><b>Welcome Mission</b><p>Visit your dashboard.</p></div>
+      <button class="small-btn" onclick="claimMission('welcome',50,this)">Claim 50 ◆</button>
+    </div>
+    <div class="mission">
+      <div><b>Explore Games</b><p>Visit the games section.</p></div>
+      <button class="small-btn" onclick="claimMission('games',75,this)">Claim 75 ◆</button>
+    </div>
+    <div class="mission">
+      <div><b>Visit the Shop</b><p>Explore available cosmetics.</p></div>
+      <button class="small-btn" onclick="claimMission('shop',100,this)">Claim 100 ◆</button>
+    </div>
+  </div>
+</section>
+
+<section class="page" id="leaderboard">
+  <h2 class="section-title">Leaderboard</h2>
+  <div class="card">
+    <table>
+      <tr><th>RANK</th><th>PLAYER</th><th>TOKENS</th></tr>
+      <tr><td>🥇 1</td><td>BlueStorm</td><td>8500</td></tr>
+      <tr><td>🥈 2</td><td>NovaX</td><td>6200</td></tr>
+      <tr><td>🥉 3</td><td>PixelKing</td><td>4900</td></tr>
+      <tr><td>4</td><td>You</td><td id="leaderBalance">1000</td></tr>
+    </table>
+    <p>Example leaderboard data.</p>
+  </div>
+</section>
+
+<section class="page" id="shop">
+  <h2 class="section-title">Cosmetic Shop</h2>
+  <div class="grid">
+    <div class="card">
+      <div class="item-art">🔵</div>
+      <h3>Blue Avatar</h3>
+      <p>200 demo tokens</p>
+      <button class="primary" onclick="buyItem('blue',200)">Purchase</button>
+    </div>
+    <div class="card">
+      <div class="item-art">⚡</div>
+      <h3>Lightning Badge</h3>
+      <p>350 demo tokens</p>
+      <button class="primary" onclick="buyItem('lightning',350)">Purchase</button>
+    </div>
+    <div class="card">
+      <div class="item-art">👑</div>
+      <h3>Royal Badge</h3>
+      <p>500 demo tokens</p>
+      <button class="primary" onclick="buyItem('royal',500)">Purchase</button>
+    </div>
+  </div>
+</section>
+
+<section class="page" id="profile">
+  <h2 class="section-title">Your Profile</h2>
+  <div class="card">
+    <div class="avatar">P</div>
+    <h2>Player</h2>
+    <p>FlipToken Member</p>
+    <div class="stat" id="profileBalance">1000</div>
+    <p>Games played: <span id="profilePlayed">0</span></p>
+    <button class="small-btn" onclick="resetDemo()">Reset Demo Data</button>
+  </div>
+</section>
+</main>
+
+<footer>FLIPTOKEN © 2026 · Community Gaming Demo</footer>
+<script>
+let balance = Number(localStorage.getItem("ft_balance")) || 1000;
+let played = Number(localStorage.getItem("ft_played")) || 0;
+
+let claimed = JSON.parse(
+  localStorage.getItem("ft_claimed") || "[]"
+);
+
+let owned = JSON.parse(
+  localStorage.getItem("ft_owned") || "[]"
+);
+
+// UPDATE ALL BALANCES
+function update() {
+  const ids = [
+    "balance",
+    "homeBalance",
+    "profileBalance",
+    "leaderBalance"
+  ];
+
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = balance.toLocaleString();
+  });
+
+  document.getElementById("played").textContent = played;
+  document.getElementById("profilePlayed").textContent = played;
+
+  localStorage.setItem("ft_balance", balance);
+  localStorage.setItem("ft_played", played);
+}
+
+// NAVIGATION
+function showPage(id, btn) {
+  document.querySelectorAll(".page").forEach(page => {
+    page.classList.remove("active");
+  });
+
+  document.getElementById(id).classList.add("active");
+
+  document.querySelectorAll("nav button").forEach(button => {
+    button.classList.remove("active");
+  });
+
+  if (btn) btn.classList.add("active");
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+// DAILY MISSIONS
+function claimMission(id, reward, btn) {
+  if (claimed.includes(id)) {
+    alert("You already claimed this mission!");
+    return;
+  }
+
+  claimed.push(id);
+  balance += reward;
+
+  localStorage.setItem(
+    "ft_claimed",
+    JSON.stringify(claimed)
+  );
+
+  btn.textContent = "Completed ✓";
+  btn.disabled = true;
+
+  update();
+  alert("You earned " + reward + " demo tokens!");
+}
+
+// COSMETIC SHOP
+function buyItem(id, cost) {
+  if (owned.includes(id)) {
+    alert("You already own this item!");
+    return;
+  }
+
+  if (balance < cost) {
+    alert("Not enough demo tokens!");
+    return;
+  }
+
+  balance -= cost;
+  owned.push(id);
+
+  localStorage.setItem(
+    "ft_owned",
+    JSON.stringify(owned)
+  );
+
+  update();
+  alert("Cosmetic purchased successfully!");
+}
+
+// REACTION GAME
+let waiting = false;
+let started = false;
+let startTime = 0;
+let gameTimeout = null;
+
+function startGame() {
+  if (started) return;
+
+  started = true;
+  waiting = false;
+
+  const btn = document.getElementById("startButton");
+  const message = document.getElementById("gameMessage");
+  const timer = document.getElementById("timer");
+  const result = document.getElementById("gameResult");
+
+  btn.textContent = "Wait...";
+  btn.disabled = true;
+
+  message.textContent = "Get ready...";
+  timer.textContent = "⏳";
+  result.textContent = "Wait until the button turns green.";
+
+  const delay = 2000 + Math.random() * 3000;
+
+  gameTimeout = setTimeout(() => {
+    waiting = true;
+    startTime = Date.now();
+
+    message.textContent = "TAP NOW!";
+    timer.textContent = "🟢";
+    btn.textContent = "TAP NOW!";
+    btn.disabled = false;
+    btn.style.background = "#16a34a";
+  }, delay);
+}
+
+function reactionTap() {
+  if (!started) return;
+
+  const btn = document.getElementById("startButton");
+  const message = document.getElementById("gameMessage");
+  const timer = document.getElementById("timer");
+  const result = document.getElementById("gameResult");
+
+  if (!waiting) {
+    clearTimeout(gameTimeout);
+
+    message.textContent = "Too early!";
+    timer.textContent = "❌";
+    result.textContent = "Wait for the green signal next time.";
+
+    finishGame();
+    return;
+  }
+
+  const reaction = Date.now() - startTime;
+  let reward = 0;
+
+  if (reaction < 250) reward = 50;
+  else if (reaction < 400) reward = 35;
+  else if (reaction < 600) reward = 20;
+  else reward = 10;
+
+  balance += reward;
+  played++;
+
+  message.textContent = "Great reaction!";
+  timer.textContent = reaction + " ms";
+  result.textContent = "You earned " + reward + " demo tokens!";
+
+  update();
+  finishGame();
+}
+
+function finishGame() {
+  started = false;
+  waiting = false;
+
+  const btn = document.getElementById("startButton");
+
+  btn.textContent = "Play Again";
+  btn.disabled = false;
+  btn.style.background = "";
+}
+
+// RESET DEMO
+function resetDemo() {
+  if (!confirm("Reset all your demo progress?")) return;
+
+  balance = 1000;
+  played = 0;
+  claimed = [];
+  owned = [];
+
+  localStorage.removeItem("ft_balance");
+  localStorage.removeItem("ft_played");
+  localStorage.removeItem("ft_claimed");
+  localStorage.removeItem("ft_owned");
+
+  location.reload();
+}
+
+// MAKE THE REACTION BUTTON WORK
+document.getElementById("startButton")
+  .addEventListener("click", reactionTap);
+
+// LOAD SAVED DATA
+function loadMissions() {
+  document.querySelectorAll(".mission button").forEach(btn => {
+    const id = btn.getAttribute("onclick").match(/'([^']+)'/)[1];
+
+    if (claimed.includes(id)) {
+      btn.textContent = "Completed ✓";
+      btn.disabled = true;
+    }
+  });
+}
+
+update();
+loadMissions();
+</script>
+</body>
+</html>
